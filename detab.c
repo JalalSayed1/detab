@@ -53,7 +53,7 @@ void replacetabs(int len)
 
             while (spacesneeded > 0)
             {
-                line[pos] = '-';
+                line[pos] = ' ';
 
                 for (int j = len - 1; j > i; --j)
                 {
