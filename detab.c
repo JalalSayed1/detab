@@ -33,6 +33,9 @@ void replacetabs(int len)
     int i;
     int ncolumns = 0;
 
+    // without \n:
+    --len;
+
     for (i = 0; i < len; ++i)
     {
         ++ncolumns;
@@ -43,42 +46,33 @@ void replacetabs(int len)
 
         if (line[i] == '\t')
         {
+            // without \n:
+            // --len;
+            int spacesneeded = (TABSTOP - ncolumns);
             int pos = i;
-            for (int j = 0; j < (TABSTOP - ncolumns); ++j)
+
+            while (spacesneeded > 0)
             {
-                ++len;
-                // shift elts:
-                int z;
-                for (z = len-1; z < i; --z)
+                line[pos] = ' ';
+
+                for (int j = len - 1; j > i; --j)
                 {
-                    line[z] = line[z - 1];
+                    line[j + 1] = line[j];
                 }
 
-                line[i] = '_';
+                --spacesneeded;
+                ++pos;
+                ++len;
             }
-            
-            // line[i] = ' ';
-
-            // total spaces required = spacesrequired + prev space added:
-            // int spacesrequired = TABSTOP - ncolumns;
-            // printf("spaces req: %d\n", spacesrequired);
-            // char temp;
-
-            // for (int z = 0; z < spacesrequired; ++z)
-            // {
-            //     // -1 is \0, and -2 is \n:
-            //     temp = line[len - 3];
-            //     for (int j = len - 3; j > 0; --j)
-            //     {
-            //         // not checking for overflow!
-            //         line[j] = line[j - 1];
-            //     }
-            //     line[len+z-1] = temp;
-            // }
         }
     }
 }
 
+/**
+ * @brief get a line of input, defined by a newline.
+ * 
+ * @return int length of input line.
+ */
 int mygetline(void)
 {
     extern char line[];
@@ -101,6 +95,11 @@ int mygetline(void)
     return i;
 }
 
-void putline(void){
-    printf("%s", line);
+/**
+ * @brief Prints line as a string. Takes no args.
+ *
+ */
+void putline(void)
+{
+    printf("%s\n", line);
 }
