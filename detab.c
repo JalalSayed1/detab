@@ -1,5 +1,3 @@
-//* cd "C:\Users\Jalal\OneDrive\Programing\C\detab" && gcc -o output "detab.c" && output
-
 #include <stdio.h>
 
 #define TABSTOP 8
@@ -60,7 +58,6 @@ void replacetabs(int len)
                     //! no overflow checking - MAXLEN:
                     line[j + 1] = line[j];
                 }
-
                 --spacesneeded;
                 ++pos;
                 ++len;
